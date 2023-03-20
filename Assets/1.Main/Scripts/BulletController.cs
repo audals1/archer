@@ -8,7 +8,8 @@ public class BulletController : MonoBehaviour
     PlayerController m_player;
     [SerializeField]
     float m_speed = 15f;
-    Vector3 m_targetDir;
+    Vector3 m_bullDir;
+    Rigidbody rigid;
     [SerializeField] MonsterController m_monster;
     
     public void Initialize(PlayerController player, MonsterController monster)
@@ -28,28 +29,25 @@ public class BulletController : MonoBehaviour
             BulletManager.Instance.ReturnBullet(this);
         }
     }
-    // Start is called before the first frame update
     void Start()
     {
-        
+         rigid = GetComponent<Rigidbody>();
     }
     // Update is called once per frame
     void Update()
     {
-        //GetComponent<Rigidbody>().velocity = transform.forward * m_speed;
-        transform.position += transform.forward * m_speed * Time.deltaTime;
-        //m_targetDir = Targeting.Instance.GetTargetDir();
-        //if(m_targetDir != Vector3.zero)
-        //{
-        //    transform.position += m_targetDir * m_speed * Time.deltaTime;
-        //}
-        //else
-        //{
-        //    RaycastHit hit;
-        //    Physics.Raycast(transform.position, transform.forward - transform.position, out hit, 100f);
-        //    m_targetDir = Targeting.Instance.GetPadDir();
-        //    transform.position += m_targetDir * m_speed * Time.deltaTime;
-        //}
+
+        //transform.position += transform.forward * m_speed * Time.deltaTime;
+        m_bullDir = Targeting.Instance.GetTargetDir();
+        if(m_bullDir == Vector3.zero)
+        {
+            transform.position += m_bullDir * m_speed * Time.deltaTime;
+        }
+        else
+        {
+            m_bullDir = m_player.GetPadDir();
+            transform.position += m_bullDir * m_speed * Time.deltaTime;
+        }
 
     }
 }

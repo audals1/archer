@@ -95,7 +95,7 @@ public class Targeting : SingletonMonoBehaviour<Targeting>
                 m_currentDist = Vector3.Distance(transform.position, m_unitList[i].transform.position);
 
                 RaycastHit hit;
-                bool isHit = Physics.Raycast(transform.position, m_unitList[i].transform.position - transform.position, out hit, 40f);
+                bool isHit = Physics.Raycast(transform.position, m_unitList[i].transform.position - transform.position, out hit, 240f);
 
                 if (isHit && hit.transform.CompareTag("Monster"))
                 {
